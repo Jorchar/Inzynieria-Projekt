@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inzynieria_Projekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="250" Width="300">
     <Grid>
-        
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="115,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="115,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="54,39,0,0" TextWrapping="Wrap" Text="Login" VerticalAlignment="Top" Height="23" RenderTransformOrigin="2.028,0.66"/>
+        <TextBlock HorizontalAlignment="Left" Margin="54,92,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Height="23" RenderTransformOrigin="0.517,2.167"/>
+        <Button Content="Login" HorizontalAlignment="Left" Margin="160,147,0,0" VerticalAlignment="Top" Width="75" Click="Button_Login"/>
+        <Button Content="Register" HorizontalAlignment="Left" Margin="54,147,0,0" VerticalAlignment="Top" Width="75" Click="Button_Register"/>
+
     </Grid>
 </Window>

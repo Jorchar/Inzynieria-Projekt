@@ -24,5 +24,17 @@ namespace Inzynieria_Projekt
         {
             InitializeComponent();
         }
+
+        private void Button_Login(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Register(object sender, RoutedEventArgs e)
+        {
+            RegisterWindow registerWindow = new RegisterWindow();
+            registerWindow.Show();
+            this.Hide();
+        }
     }
 }
