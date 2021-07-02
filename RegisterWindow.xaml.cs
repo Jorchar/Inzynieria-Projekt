@@ -75,10 +75,16 @@ namespace Inzynieria_Projekt
             }
         }
 
+        void addToDatabase()
+        {
+            SQLBaseClass.addToBase(nameBox.Text, surnameBox.Text, loginBox.Text, passwordBox.Text, phoneBox.Text, cityBox.Text, streetBox.Text, housenrBox.Text, postcodeBox0.Text + "-" + postcodeBox1.Text, emailBox.Text);
+        }
+
         private void ButtonConfirm(object sender, RoutedEventArgs e)
         {
             if (verification())
             {
+                addToDatabase();
                 MessageBox.Show("Account created succesful");
                 Application.Current.MainWindow.Show();
                 this.Close();
