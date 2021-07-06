@@ -124,12 +124,12 @@ namespace Inzynieria_Projekt
             }
         }
 
-        public static int getOrderNumber(string login)
+        public static Int32 getOrderNumber(string login)
         {
             try
             {
                 openConnection();
-                string cmdString = "SELECT MAX(order_number) FROM Orders WHERE(userLogin = @login);";
+                string cmdString = "SELECT DISTINCT(order_number) FROM Orders WHERE(userLogin = @login);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -137,10 +137,11 @@ namespace Inzynieria_Projekt
                     comm.CommandType = System.Data.CommandType.Text;
                     comm.Connection = conn;
                 }
-                MySqlDataReader nazwa = comm.ExecuteReader();
+
+                Int32 nazwa = (Int32)comm.ExecuteScalar();
 
                 closeConnection();
-                return int.Parse(String.Format("{0}", nazwa[0]));
+                return nazwa;
             }
             catch (Exception)
             {
