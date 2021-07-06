@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MenuWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label Name="loginLabel" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Label Name="ordernrLabel" Content="" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <Button Content="Logout" HorizontalAlignment="Left" Margin="707,16,0,0" VerticalAlignment="Top" Width="75" FontWeight="Bold" Click="Button_Click"/>
+        <Button Content="+" Margin="375,206,376,0" VerticalAlignment="Top" Height="56" FontSize="36" Click="Button_Add" FontFamily="Tahoma"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="375,267,0,0" VerticalAlignment="Top" Width="41" Height="56" FontSize="36" Click="Button_Sub" FontFamily="Tahoma"/>
+        <Label Content="Menu" HorizontalAlignment="Left" Margin="120,42,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold"/>
+        <Label Content="Order" Margin="563,42,120,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold"/>
+        <Button Content="Done" Margin="339,347,339,0" VerticalAlignment="Top" Height="45" FontSize="18" FontWeight="Bold" Click="Button_Click"/>
+        <WrapPanel HorizontalAlignment="Left" Height="218" Margin="10,105,0,0" VerticalAlignment="Top" Width="348">
+            <DataGrid Name="menuData" Height="218" Width="347"/>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Left" Height="218" Margin="432,105,0,0" VerticalAlignment="Top" Width="350">
+            <DataGrid Name="orderData" Height="218" Width="347"/>
+        </WrapPanel>
+
     </Grid>
 </Window>

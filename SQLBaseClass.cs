@@ -63,7 +63,7 @@ namespace Inzynieria_Projekt
 
         }
 
-        public static void searchInBase(string login, string password)
+        public static bool searchInBase(string login, string password)
         {
             
                 try
@@ -81,21 +81,128 @@ namespace Inzynieria_Projekt
                     MySqlDataReader nazwa = comm.ExecuteReader();
                     if (nazwa.HasRows)
                     {
-                        MessageBox.Show("znaleziono");
                         adapter = new MySqlDataAdapter(comm);
                         closeConnection();
+                        return true;
                     }
                     else
                     {
                         adapter = new MySqlDataAdapter(comm);
                         closeConnection();
+                        return false;
                     }
                 }
                 catch (Exception blad)
                 {
                     MessageBox.Show(blad.Message);
+                    return false;
                 }
         }
         
+        public static void fillDataGrids(System.Windows.Controls.DataGrid table1)
+        {
+            try
+            {
+                openConnection();
+                string cmdString = "SELECT * FROM Products;";
+                using (comm = new MySqlCommand())
+                {
+                    comm.CommandText = cmdString;
+                    comm.CommandType = System.Data.CommandType.Text;
+                    comm.Connection = conn;
+                }
+                DataTable dt = new DataTable();
+                adapter = new MySqlDataAdapter(comm);
+                adapter.Fill(dt);
+                table1.DataContext = dt;
+                closeConnection();
+            }
+            catch (Exception blad)
+            {
+                MessageBox.Show(blad.Message);
+            }
+        }
+
+        public static int getOrderNumber(string login)
+        {
+            try
+            {
+                openConnection();
+                string cmdString = "SELECT MAX(ordernr) FROM Orders WHERE(login = @login);";
+                using (comm = new MySqlCommand())
+                {
+                    comm.CommandText = cmdString;
+                    comm.Parameters.AddWithValue("@login", login);
+                    comm.CommandType = System.Data.CommandType.Text;
+                    comm.Connection = conn;
+                }
+                MySqlDataReader nazwa = comm.ExecuteReader();
+
+                return nazwa[0]+1;
+                adapter = new MySqlDataAdapter(comm);
+                closeConnection();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public static void refreshOrder(System.Windows.Controls.DataGrid table2, string login, int ordernr)
+        {
+            try
+            {
+                openConnection();
+                string cmdString = "SELECT * FROM Orders WHERE(login = @login AND ordernr = @ordernr);";
+                using (comm = new MySqlCommand())
+                {
+                    comm.CommandText = cmdString;
+                    comm.Parameters.AddWithValue("@login", login);
+                    comm.Parameters.AddWithValue("@ordernr", ordernr);
+                    comm.CommandType = System.Data.CommandType.Text;
+                    comm.Connection = conn;
+                }
+                DataTable dt = new DataTable();
+                adapter = new MySqlDataAdapter(comm);
+                adapter.Fill(dt);
+                table2.DataContext = dt;
+                closeConnection();
+            }
+            catch (Exception blad)
+            {
+                MessageBox.Show(blad.Message);
+            }
+        }
+        public static void addOrder()
+        {
+
+        }
+        public static void subOrder()
+        {
+
+        }
+        public static void resetOrder(string login, int ordernr)
+        {
+            try
+            {
+                openConnection();
+                string cmdString = "DELETE FROM Orders WHERE(login = @login AND ordernr = @ordernr);";
+                using (comm = new MySqlCommand())
+                {
+                    comm.CommandText = cmdString;
+                    comm.Parameters.AddWithValue("@login", login);
+                    comm.Parameters.AddWithValue("@ordernr", ordernr);
+                    comm.CommandType = System.Data.CommandType.Text;
+                    comm.Connection = conn;
+                }
+                comm.ExecuteNonQuery();
+                adapter = new MySqlDataAdapter(comm);
+                closeConnection();
+            }
+            catch (Exception blad)
+            {
+                MessageBox.Show(blad.Message);
+            }
+        }
     }
 }

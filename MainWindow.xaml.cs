@@ -27,7 +27,12 @@ namespace Inzynieria_Projekt
 
         private void Button_Login(object sender, RoutedEventArgs e)
         {
-            SQLBaseClass.searchInBase(LoginBox.Text, PassBox.Text);
+            if(SQLBaseClass.searchInBase(LoginBox.Text, PassBox.Text))
+            {
+                MenuWindow menuWindow = new MenuWindow(LoginBox.Text);
+                menuWindow.Show();
+                this.Hide();
+            }
         }
 
         private void Button_Register(object sender, RoutedEventArgs e)
