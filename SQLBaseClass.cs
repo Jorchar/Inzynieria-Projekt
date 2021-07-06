@@ -69,7 +69,7 @@ namespace Inzynieria_Projekt
                 try
                 {
                     openConnection();
-                    string cmdString = "SELECT * FROM User WHERE(login = @login AND password = @pasw);";
+                    string cmdString = "SELECT * FROM user WHERE(login = @login AND password = @pasw);";
                     using (comm = new MySqlCommand())
                     {
                         comm.CommandText = cmdString;
@@ -129,7 +129,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "SELECT DISTINCT(order_number) FROM Orders WHERE(userLogin = @login);";
+                string cmdString = "SELECT COUNT(DISTINCT(order_number)) FROM Orders WHERE(userLogin = @login);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -138,10 +138,15 @@ namespace Inzynieria_Projekt
                     comm.Connection = conn;
                 }
 
-                Int32 nazwa = (Int32)comm.ExecuteScalar();
+                object nazwa = comm.ExecuteScalar();
+                if (nazwa != null)
+                {
+                    closeConnection();
+                    return Int32.Parse(nazwa.ToString());
+                }
+                else { return 0; }
 
-                closeConnection();
-                return nazwa;
+                
             }
             catch (Exception)
             {
@@ -154,7 +159,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "SELECT * FROM Orders WHERE(userLogin = @login AND order_number = @ordernr);";
+                string cmdString = "SELECT * FROM orders WHERE(userLogin = @login AND order_number = @ordernr);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -179,7 +184,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "INSERT INTO Orders (name,order_number,userLogin,productNumber) VALUES (@name, @order_number, @userLogin, @productNumber);";
+                string cmdString = "INSERT INTO orders (name,order_number,userLogin,productNumber) VALUES (@name, @order_number, @userLogin, @productNumber);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -204,7 +209,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "DELETE FROM Orders WHERE(name = @name AND order_number = @order_number AND userLogin = @userLogin AND productNumber = @productNumber);";
+                string cmdString = "DELETE FROM orders WHERE(name = @name AND order_number = @order_number AND userLogin = @userLogin AND productNumber = @productNumber);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -229,7 +234,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "DELETE FROM Orders WHERE(userLogin = @login AND order_number = @ordernr);";
+                string cmdString = "DELETE FROM orders WHERE(userLogin = @login AND order_number = @ordernr);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
