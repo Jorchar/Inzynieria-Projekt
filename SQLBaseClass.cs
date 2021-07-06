@@ -14,7 +14,7 @@ namespace Inzynieria_Projekt
     {
         public static string connetionString;
         public static SqlConnection cnn;
-        public static SqlCommand command;
+        public static SqlCommand comm;
         public static SqlDataAdapter adapter = new SqlDataAdapter();
 
         public static void openConnection()
@@ -34,7 +34,7 @@ namespace Inzynieria_Projekt
             {
                 openConnection();
                 string cmdString = "INSERT INTO users (name,surname,login,password,phonenumber,city,street,housenr,postcode,email) VALUES (@val1, @va2, @val3, @val4, @val5, @val6, @val7, @val8, @val9, @val10)";
-                using (SqlCommand comm = new SqlCommand())
+                using (comm = new SqlCommand())
                 {
                     comm.CommandText = cmdString;
                     comm.Parameters.AddWithValue("@val1", name);
@@ -51,7 +51,7 @@ namespace Inzynieria_Projekt
                     comm.Connection = cnn;
                 }
 
-                adapter = new SqlDataAdapter(command);
+                adapter = new SqlDataAdapter(comm);
                 closeConnection();
             }
             catch (Exception blad)
@@ -67,7 +67,6 @@ namespace Inzynieria_Projekt
             {
                 openConnection();
 
-                adapter = new SqlDataAdapter(command);
                 closeConnection();
             }
             catch (Exception blad)
