@@ -69,7 +69,7 @@ namespace Inzynieria_Projekt
                 try
                 {
                     openConnection();
-                    string cmdString = "SELECT COUNT(*) FROM User WHERE(login = @login AND password = @pasw);";
+                    string cmdString = "SELECT * FROM User WHERE(login = @login AND password = @pasw);";
                     using (comm = new MySqlCommand())
                     {
                         comm.CommandText = cmdString;
@@ -173,13 +173,55 @@ namespace Inzynieria_Projekt
                 MessageBox.Show(blad.Message);
             }
         }
-        public static void addOrder()
+        public static void addOrder(string name, int order_number, string userLogin, string productNumber)
         {
-
+            try
+            {
+                openConnection();
+                string cmdString = "INSERT INTO Orders (name,order_number,userLogin,productNumber) VALUES (@name, @order_number, @userLogin, @productNumber);";
+                using (comm = new MySqlCommand())
+                {
+                    comm.CommandText = cmdString;
+                    comm.Parameters.AddWithValue("@name", name);
+                    comm.Parameters.AddWithValue("@order_number", order_number);
+                    comm.Parameters.AddWithValue("@userLogin", userLogin);
+                    comm.Parameters.AddWithValue("@productNumber", productNumber);;
+                    comm.CommandType = System.Data.CommandType.Text;
+                    comm.Connection = conn;
+                }
+                comm.ExecuteNonQuery();
+                adapter = new MySqlDataAdapter(comm);
+                closeConnection();
+            }
+            catch (Exception blad)
+            {
+                MessageBox.Show(blad.Message);
+            }
         }
-        public static void subOrder()
+        public static void subOrder(string name, int order_number, string userLogin, string productNumber)
         {
-
+            try
+            {
+                openConnection();
+                string cmdString = "DELETE FROM Orders WHERE(name = @name AND order_number = @order_number AND userLogin = @userLogin AND productNumber = @productNumber);";
+                using (comm = new MySqlCommand())
+                {
+                    comm.CommandText = cmdString;
+                    comm.Parameters.AddWithValue("@name", name);
+                    comm.Parameters.AddWithValue("@order_number", order_number);
+                    comm.Parameters.AddWithValue("@userLogin", userLogin);
+                    comm.Parameters.AddWithValue("@productNumber", productNumber); ;
+                    comm.CommandType = System.Data.CommandType.Text;
+                    comm.Connection = conn;
+                }
+                comm.ExecuteNonQuery();
+                adapter = new MySqlDataAdapter(comm);
+                closeConnection();
+            }
+            catch (Exception blad)
+            {
+                MessageBox.Show(blad.Message);
+            }
         }
         public static void resetOrder(string login, int ordernr)
         {

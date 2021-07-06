@@ -30,16 +30,24 @@ namespace Inzynieria_Projekt
 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), int.Parse(ordernrLabel.Content.ToString()));
             DataRowView row = (DataRowView)menuData.SelectedItems[0];
-            MessageBox.Show(row["name"].ToString());
-            
+
+            string name = row["name"].ToString();
+            string productNumber = row["productNumber"].ToString();
+
+            SQLBaseClass.addOrder(name, int.Parse(ordernrLabel.Content.ToString()), loginLabel.Content.ToString(), productNumber);
+            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), int.Parse(ordernrLabel.Content.ToString()));
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
         {
+            DataRowView row = (DataRowView)orderData.SelectedItems[0];
+
+            string name = row["name"].ToString();
+            string productNumber = row["productNumber"].ToString();
+
+            SQLBaseClass.subOrder(name, int.Parse(ordernrLabel.Content.ToString()), loginLabel.Content.ToString(), productNumber);
             SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), int.Parse(ordernrLabel.Content.ToString()));
-            MessageBox.Show(orderData.SelectedItem.ToString());
         }
 
         private void Button_Done(object sender, RoutedEventArgs e)
