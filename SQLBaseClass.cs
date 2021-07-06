@@ -99,12 +99,12 @@ namespace Inzynieria_Projekt
                 }
         }
         
-        public static void fillDataGrids(System.Windows.Controls.DataGrid table1)
+        public static DataTable fillDataGrids()
         {
             try
             {
                 openConnection();
-                string cmdString = "SELECT * FROM Products;";
+                string cmdString = "SELECT * FROM products;";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -112,14 +112,15 @@ namespace Inzynieria_Projekt
                     comm.Connection = conn;
                 }
                 DataTable dt = new DataTable();
-                adapter = new MySqlDataAdapter(comm);
-                adapter.Fill(dt);
-                table1.DataContext = dt;
+                dt.Load(comm.ExecuteReader());
                 closeConnection();
+                return dt;
+                
             }
             catch (Exception blad)
             {
                 MessageBox.Show(blad.Message);
+                return null;
             }
         }
 
@@ -128,7 +129,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "SELECT MAX(ordernr) FROM Orders WHERE(login = @login);";
+                string cmdString = "SELECT MAX(order_number) FROM Orders WHERE(userLogin = @login);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -138,9 +139,8 @@ namespace Inzynieria_Projekt
                 }
                 MySqlDataReader nazwa = comm.ExecuteReader();
 
-                return nazwa[0]+1;
-                adapter = new MySqlDataAdapter(comm);
                 closeConnection();
+                return int.Parse(String.Format("{0}", nazwa[0]));
             }
             catch (Exception)
             {
@@ -153,7 +153,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "SELECT * FROM Orders WHERE(login = @login AND ordernr = @ordernr);";
+                string cmdString = "SELECT * FROM Orders WHERE(userLogin = @login AND order_number = @ordernr);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -186,7 +186,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "DELETE FROM Orders WHERE(login = @login AND ordernr = @ordernr);";
+                string cmdString = "DELETE FROM Orders WHERE(userLogin = @login AND order_number = @ordernr);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
