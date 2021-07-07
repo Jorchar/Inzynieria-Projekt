@@ -36,7 +36,7 @@ namespace Inzynieria_Projekt
             string productNumber = row["productNumber"].ToString();
 
             SQLBaseClass.addOrder(name, int.Parse(ordernrLabel.Content.ToString()), loginLabel.Content.ToString(), productNumber);
-            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), int.Parse(ordernrLabel.Content.ToString()));
+            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), ordernrLabel.Content.ToString());
         }
 
         private void Button_Sub(object sender, RoutedEventArgs e)
@@ -47,13 +47,13 @@ namespace Inzynieria_Projekt
             string productNumber = row["productNumber"].ToString();
 
             SQLBaseClass.subOrder(name, int.Parse(ordernrLabel.Content.ToString()), loginLabel.Content.ToString(), productNumber);
-            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), int.Parse(ordernrLabel.Content.ToString()));
+            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), ordernrLabel.Content.ToString());
         }
 
         private void Button_Done(object sender, RoutedEventArgs e)
         {
             ordernrLabel.Content = SQLBaseClass.getOrderNumber(loginLabel.Content.ToString());
-            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), int.Parse(ordernrLabel.Content.ToString()));
+            SQLBaseClass.refreshOrder(orderData, loginLabel.Content.ToString(), ordernrLabel.Content.ToString());
         }
 
         private void Button_Logout(object sender, RoutedEventArgs e)
@@ -69,6 +69,12 @@ namespace Inzynieria_Projekt
             loginLabel.Content = login;
             menuData.DataContext = SQLBaseClass.fillDataGrids().DefaultView;
             ordernrLabel.Content = SQLBaseClass.getOrderNumber(login);
+        }
+
+        private void Button_old_orders(object sender, RoutedEventArgs e)
+        {
+            RemoveOrder removeOrder = new RemoveOrder(login);
+            removeOrder.Show();
         }
     }
 }

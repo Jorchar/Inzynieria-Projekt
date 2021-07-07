@@ -156,7 +156,7 @@ namespace Inzynieria_Projekt
             }
         }
 
-        public static void refreshOrder(System.Windows.Controls.DataGrid table2, string login, int ordernr)
+        public static void refreshOrder(System.Windows.Controls.DataGrid table2, string login, string ordernr)
         {
             try
             {
