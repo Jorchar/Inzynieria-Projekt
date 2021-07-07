@@ -129,7 +129,7 @@ namespace Inzynieria_Projekt
             try
             {
                 openConnection();
-                string cmdString = "SELECT COUNT(DISTINCT(order_number)) FROM Orders WHERE(userLogin = @login);";
+                string cmdString = "SELECT MAX(order_number) FROM Orders WHERE(userLogin = @login);";
                 using (comm = new MySqlCommand())
                 {
                     comm.CommandText = cmdString;
@@ -142,7 +142,9 @@ namespace Inzynieria_Projekt
                 if (nazwa != null)
                 {
                     closeConnection();
-                    return Int32.Parse(nazwa.ToString());
+                    int r = int.Parse(nazwa.ToString());
+                    r++;
+                    return r ;
                 }
                 else { return 0; }
 
