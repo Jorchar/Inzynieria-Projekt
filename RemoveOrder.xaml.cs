@@ -36,7 +36,7 @@ namespace Inzynieria_Projekt
             string productNumber = row["productNumber"].ToString();
 
             SQLBaseClass.subOrder(name, int.Parse(order_number), login, productNumber);
-            SQLBaseClass.refreshOrder(AllOrdersData, login, "*");
+            SQLBaseClass.refreshOrder(AllOrdersData, login);
         }
 
         private void Button_Back(object sender, RoutedEventArgs e)
@@ -46,7 +46,7 @@ namespace Inzynieria_Projekt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SQLBaseClass.refreshOrder(AllOrdersData, login, "*");
+            SQLBaseClass.refreshOrder(AllOrdersData, login);
         }
     }
 }

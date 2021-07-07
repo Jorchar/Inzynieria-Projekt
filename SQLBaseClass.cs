@@ -156,6 +156,30 @@ namespace Inzynieria_Projekt
             }
         }
 
+        public static void refreshOrder(System.Windows.Controls.DataGrid table2, string login)
+        {
+            try
+            {
+                openConnection();
+                string cmdString = "SELECT * FROM orders WHERE(userLogin = @login);";
+                using (comm = new MySqlCommand())
+                {
+                    comm.CommandText = cmdString;
+                    comm.Parameters.AddWithValue("@login", login);
+                    comm.CommandType = System.Data.CommandType.Text;
+                    comm.Connection = conn;
+                }
+                DataTable dt = new DataTable();
+                adapter = new MySqlDataAdapter(comm);
+                adapter.Fill(dt);
+                table2.DataContext = dt;
+                closeConnection();
+            }
+            catch (Exception blad)
+            {
+                MessageBox.Show(blad.Message);
+            }
+        }
         public static void refreshOrder(System.Windows.Controls.DataGrid table2, string login, string ordernr)
         {
             try
